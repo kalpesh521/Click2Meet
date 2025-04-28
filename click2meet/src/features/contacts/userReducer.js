@@ -13,8 +13,14 @@ const userSlice = createSlice({
     deleteContact: (state, action) => {
       return state.filter((contact) => contact.id !== action.payload);
     },
+    updateContact: (state, action) => {
+        const index = state.findIndex(contact => contact.id === action.payload.id);
+        if (index !== -1) {
+          state[index] = action.payload;
+        }
+      },
   },
 });
 
-export const { addContact, setContacts , deleteContact } = userSlice.actions;
+export const { addContact, setContacts , deleteContact, updateContact } = userSlice.actions;
 export default userSlice.reducer;
