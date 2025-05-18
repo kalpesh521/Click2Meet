@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgb(255, 255, 255);
   background-color: #242424;
 
   font-synthesis: none;
@@ -23,11 +23,29 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  /* margin: auto;
   display: flex;
-  place-items: center;
+  align-content: center;
+  place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins';
+
+  background: linear-gradient(
+    135deg,
+    #FFFFFF 0%,
+    #FCFCFD 30%,
+    #F8F8F8 70%, 
+    #f6b54d 80%,
+    #FF6F00 100%
+  );
+  background-repeat:repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  color: #000;
 }
 
 h1 {
@@ -53,6 +71,12 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+.form-icon {
+  color: #FF6F00;
+  margin-right: 12px;
+  font-size: 16px;
+  padding:5px;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -66,3 +90,36 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.ant-typography,
+.ant-btn,
+.ant-input,
+.ant-form,
+.ant-select,
+.ant-table,
+.ant-menu,
+.ant-modal,
+.ant-drawer,
+.ant-card {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Highlight input border on focus with your theme color */
+.ant-input:focus, 
+.ant-input-focused,
+.ant-input:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused,
+.ant-input-affix-wrapper:hover {
+  border-color: #FF6F00 !important;
+  box-shadow: 0 0 0 1px rgba(255, 111, 0, 0.2); /* optional subtle glow */
+}
+
+/* Textarea specifically */
+.ant-form-item:has(.ant-input:focus),
+.ant-form-item:has(.ant-input-affix-wrapper-focused),
+.ant-form-item:has(.ant-input-textarea:focus) {
+  border-color: #FF6F00 !important;
+  box-shadow: 0 0 0 1px rgba(255, 111, 0, 0.2);
+}
+

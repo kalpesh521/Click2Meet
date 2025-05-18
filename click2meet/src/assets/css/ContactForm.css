@@ -1,0 +1,16 @@
+
+.form-container {
+    background-color: #F8F8F8;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+.form-icon {
+    color: #FF6F00;
+    margin-right: 12px;
+    font-size: 16px;
+    padding:5px;
+  }
+
