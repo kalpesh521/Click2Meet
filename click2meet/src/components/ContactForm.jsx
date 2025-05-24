@@ -32,7 +32,6 @@ const ContactForm = ({ initialValues = {}, onSubmit }) => {
     <Form
     className="form-container"
       layout="vertical"
-      style={{ maxWidth: 400 }}
       onSubmitCapture={handleSubmit}
     >
       <Form.Item required>
@@ -112,8 +111,8 @@ const ContactForm = ({ initialValues = {}, onSubmit }) => {
       </Form.Item>
 
       <Form.Item >
-        <Button type="primary" htmlType="submit" block  style={{ backgroundColor: '#FF6F00', borderColor: '#FF6F00',borderRadius: '15px' }}>
-          SUBMIT
+        <Button type="primary" htmlType="submit" block  style={{ backgroundColor: '#FF6F00', borderColor: '#FF6F00',borderRadius: '15px' ,fontWeight:'600' }}>
+        Schedule a Call
         </Button>
       </Form.Item>
     </Form>
