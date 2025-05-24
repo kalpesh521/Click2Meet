@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, deleteContactFromApi } from '../features/api/contactsApi';
 import { setContacts, deleteContact } from '../features/contacts/userReducer';
 import { Link } from 'react-router-dom';
+import { Table, Space, Tooltip } from 'antd';
+import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -13,7 +15,7 @@ const Dashboard = () => {
     if (data.length === 0) {
       dispatch(fetchContacts());
     }
-  }, [dispatch, data.length]);  
+  }, [dispatch, data.length]);
 
   const allContacts = [...data, ...userContacts];
 
@@ -25,30 +27,63 @@ const Dashboard = () => {
     }
   };
 
+  const columns = [
+    {
+      title: 'Sr. No',
+      dataIndex: 'index',
+      key: 'index',
+      render: (_, __, index) => index + 1,
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: (_, record) => `${record.firstName} ${record.lastName}`,
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_, record) => {
+        const isApiContact = data.some(d => d.id === record.id);
+        return (
+          <Space size="middle">
+            <Tooltip title="View">
+              <Link to={`/view/${record.id}`}>
+                <EyeOutlined style={{ color: '#1890ff' }} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Edit">
+              <Link to={`/edit/${record.id}`}>
+                <EditOutlined style={{ color: '#52c41a' }} />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Delete">
+              <DeleteOutlined
+                onClick={() => handleDelete(record.id, isApiContact)}
+                style={{ color: '#ff4d4f', cursor: 'pointer' }}
+              />
+            </Tooltip>
+          </Space>
+        );
+      },
+    },
+  ];
+
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
       <h2>All Contacts</h2>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {allContacts.map(contact => (
-            <li key={contact.id}>
-              {contact.firstName} {contact.lastName} - {contact.email}
-              {" "}
-              <Link to={`/view/${contact.id}`}>View</Link>
-              {" "}
-              <Link to={`/edit/${contact.id}`}>Edit</Link>
-              {" "}
-              <button
-                onClick={() => handleDelete(contact.id, data.some(d => d.id === contact.id))}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Table
+        columns={columns}
+        dataSource={allContacts}
+        loading={isLoading}
+        rowKey="id"
+        bordered
+      />
     </div>
   );
 };
