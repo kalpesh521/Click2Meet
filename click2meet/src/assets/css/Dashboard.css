@@ -1,0 +1,15 @@
+
+.dashboard-heading{
+    font-size:28px;
+    margin-left:20px;
+    font-weight:600;
+}
+
+@media (max-width:768px){
+    .dashboard-heading{
+        font-size:22px;
+        font-weight:600;
+        margin:60px auto 20px auto;
+        text-align: center;
+    }
+}

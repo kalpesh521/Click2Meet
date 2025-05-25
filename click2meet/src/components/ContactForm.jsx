@@ -1,18 +1,18 @@
-import React, { useState } from "react"; 
-import '../assets/css/ContactForm.css';
-import { Button, Form, Input } from "antd"; 
+import React, { useState } from "react";
+import "../assets/css/ContactForm.css";
+import { Button, Form, Input } from "antd";
 import {
   UserOutlined,
   IdcardOutlined,
   MailOutlined,
   PhoneOutlined,
   GlobalOutlined,
-  MessageOutlined
-} from '@ant-design/icons';
+  MessageOutlined,
+} from "@ant-design/icons";
 
 const { TextArea } = Input;
 
-const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
+const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false ,submitText }) => {
   const [formData, setFormData] = useState({
     firstName: initialValues.firstName || "",
     lastName: initialValues.lastName || "",
@@ -36,10 +36,16 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
   };
 
   return (
-    <Form className="form-container" layout="vertical" onSubmitCapture={handleSubmit}>
+    <Form
+      className="form-container"
+      layout="vertical"
+      onSubmitCapture={handleSubmit}
+    >
       <Form.Item required>
         <Input
-          prefix={<UserOutlined style={{ color: '#FF6F00' }} className="form-icon" />}
+          prefix={
+            <UserOutlined style={{ color: "#FF6F00" }} className="form-icon" />
+          }
           name="firstName"
           placeholder="Enter First Name"
           value={formData.firstName}
@@ -50,7 +56,12 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
 
       <Form.Item required>
         <Input
-          prefix={<IdcardOutlined style={{ color: '#FF6F00' }} className="form-icon" />}
+          prefix={
+            <IdcardOutlined
+              style={{ color: "#FF6F00" }}
+              className="form-icon"
+            />
+          }
           name="lastName"
           placeholder="Enter Last Name"
           value={formData.lastName}
@@ -61,7 +72,9 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
 
       <Form.Item required>
         <Input
-          prefix={<MailOutlined style={{ color: '#FF6F00' }} className="form-icon" />}
+          prefix={
+            <MailOutlined style={{ color: "#FF6F00" }} className="form-icon" />
+          }
           type="email"
           name="email"
           placeholder="Enter Email"
@@ -73,7 +86,12 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
 
       <Form.Item required>
         <Input
-          prefix={<GlobalOutlined style={{ color: '#FF6F00' }} className="form-icon" />}
+          prefix={
+            <GlobalOutlined
+              style={{ color: "#FF6F00" }}
+              className="form-icon"
+            />
+          }
           name="country"
           placeholder="Enter Country"
           value={formData.country}
@@ -84,7 +102,9 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
 
       <Form.Item required>
         <Input
-          prefix={<PhoneOutlined style={{ color: '#FF6F00' }} className="form-icon" />}
+          prefix={
+            <PhoneOutlined style={{ color: "#FF6F00" }} className="form-icon" />
+          }
           name="phoneNumber"
           placeholder="Enter Phone Number"
           value={formData.phoneNumber}
@@ -94,14 +114,14 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
       </Form.Item>
 
       <Form.Item required>
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: "relative" }}>
           <MessageOutlined
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 5,
               left: 12,
               zIndex: 1,
-              color: '#FF6F00',
+              color: "#FF6F00",
             }}
             className="form-icon"
           />
@@ -124,13 +144,13 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false }) => {
             htmlType="submit"
             block
             style={{
-              backgroundColor: '#FF6F00',
-              borderColor: '#FF6F00',
-              borderRadius: '15px',
-              fontWeight: '600',
+              backgroundColor: "#FF6F00",
+              borderColor: "#FF6F00",
+              borderRadius: "15px",
+              fontWeight: "600",
             }}
           >
-            Schedule a Call
+            {submitText || "Schedule a Call"}
           </Button>
         </Form.Item>
       )}

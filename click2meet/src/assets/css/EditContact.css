@@ -1,0 +1,33 @@
+/* EditContact.css */
+
+ 
+  
+  .modal-close-icon {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .edit-contact-modal .ant-input,
+  .edit-contact-modal .ant-input-affix-wrapper,
+  .edit-contact-modal .ant-input-textarea,
+  .edit-contact-modal textarea {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-radius: 6px;
+  }
+  
+  .edit-contact-modal .ant-input::placeholder,
+  .edit-contact-modal textarea::placeholder {
+    color: #999999;
+  }
+  
+  .edit-contact-modal .ant-form-item-label > label {
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  .edit-contact-modal textarea {
+    resize: vertical;
+  }
+  
