@@ -1,0 +1,39 @@
+/* ViewContact.css */
+
+ 
+  
+  .modal-close-icon {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  /* Input and textarea styling */
+  .view-contact-modal .ant-input,
+  .view-contact-modal .ant-input-affix-wrapper,
+  .view-contact-modal .ant-input-textarea,
+  .view-contact-modal textarea {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-radius: 6px;
+  }
+  
+  /* Placeholder text color (optional for clarity) */
+  .view-contact-modal .ant-input::placeholder,
+  .view-contact-modal textarea::placeholder {
+    color: #999999;
+  }
+  
+  /* Label text (Form.Item label) */
+  .view-contact-modal .ant-form-item-label > label {
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  /* Disable textarea resize in view mode */
+  .view-contact-modal textarea {
+    resize: none;
+  }
+  
+ 
+  
