@@ -7,6 +7,9 @@ import {
   DashboardOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { setSearchTerm } from "../features/contacts/userReducer";
+
 import "../assets/css/Header.css";
 import contactIcon from "../assets/images/contact-us-icon.png";
 
@@ -14,8 +17,10 @@ const { Header } = Layout;
 
 const AppHeader = () => {
   const location = useLocation();
+  const dispatch = useDispatch();  // <--- THIS IS IMPORTANT
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,6 +50,12 @@ const AppHeader = () => {
     },
   ];
 
+  const onSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    dispatch(setSearchTerm(value));  // dispatch available here now
+  };
+
   return (
     <Header className="custom-header">
       <div className="header-left">
@@ -73,6 +84,8 @@ const AppHeader = () => {
                 boxShadow: "none",
                 outline: "none",
               }}
+              value={searchValue}
+              onChange={onSearchChange}
             />
           </div>
         </>
@@ -82,7 +95,7 @@ const AppHeader = () => {
         <>
           <Button
             type="text"
-             className="menu-button"
+            className="menu-button"
             icon={<MenuOutlined style={{ color: "#FF6F00", fontSize: 22 }} />}
             onClick={() => setDrawerVisible(true)}
           />
@@ -98,6 +111,8 @@ const AppHeader = () => {
                 outline: "none",
                 color: "#FF6F00",
               }}
+              value={searchValue}
+              onChange={onSearchChange}
             />
           </div>
         </>

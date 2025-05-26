@@ -6,14 +6,20 @@ import {
 } from "../features/api/contactsApi";
 import { deleteContact } from "../features/contacts/userReducer";
 import { Table, Tooltip } from "antd";
-import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"; 
+import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import ViewContact from "../pages/ViewContact";
 import EditContact from "../pages/EditContact";
-import "../assets/css/Dashboard.css"
+import "../assets/css/Dashboard.css";
+import { filterContacts } from "../utils/filterContacts";
+
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { data, isLoading } = useSelector((state) => state.contactsApi);
-  const userContacts = useSelector((state) => state.users);
+
+  const contacts = useSelector(state => state.users.contacts ?? []);
+  const searchTerm = useSelector(state => state.users.searchTerm ?? '');
+  const userContacts = useSelector(state => state.users.contacts ?? []);
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
@@ -25,6 +31,8 @@ const Dashboard = () => {
   }, [dispatch, data.length]);
 
   const allContacts = [...data, ...userContacts];
+
+  const filteredContacts = filterContacts(allContacts, searchTerm);
 
   const handleView = (contact) => {
     setSelectedContact(contact);
@@ -63,14 +71,14 @@ const Dashboard = () => {
     {
       title: "Email",
       dataIndex: "email",
-      responsive: ['md'],  
+      responsive: ["md"],
       width: 450,
       ellipsis: true,
     },
     {
       title: "Country",
       dataIndex: "country",
-      responsive: ['md'],  
+      responsive: ["md"],
       width: 300,
       ellipsis: true,
     },
@@ -111,12 +119,12 @@ const Dashboard = () => {
       <h2 className="dashboard-heading">Contacts Directory</h2>
       <Table
         columns={columns}
-        dataSource={allContacts}
+        dataSource={filteredContacts}
         rowKey="id"
         loading={isLoading}
         bordered
-        scroll={{ x: 'max-content' }}
-        style={{padding:'0 20px'}}
+        scroll={{ x: "max-content" }}
+        style={{ padding: "0 20px" }}
       />
 
       <ViewContact

@@ -8,11 +8,15 @@ import contactUsImg from '../assets/images/contact-us-image.png';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Spin } from 'antd';
+import { filterContacts } from "../utils/filterContacts";
 
 const AddContact = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const contacts = useSelector((state) => state.users);
+  const searchTerm = useSelector((state) => state.users.searchTerm ?? "");
+  const contacts = useSelector((state) => state.users.contacts ?? []);
+
+  const filteredContacts = filterContacts(contacts, searchTerm);
 
   const [loading, setLoading] = useState(false);
 
