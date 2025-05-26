@@ -9,30 +9,43 @@ import {
   GlobalOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { toast } from "react-toastify";
+import { validateContactForm,areAllFieldsEmpty } from "../utils/validation";
 
 const { TextArea } = Input;
 
-const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false ,submitText }) => {
+const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitText }) => {
   const [formData, setFormData] = useState({
-    firstName: initialValues.firstName || "",
-    lastName: initialValues.lastName || "",
-    email: initialValues.email || "",
-    country: initialValues.country || "",
-    phoneNumber: initialValues.phoneNumber || "",
-    message: initialValues.message || "",
+    firstName: initialValues.firstName,
+    lastName: initialValues.lastName,
+    email: initialValues.email,
+    country: initialValues.country,
+    phoneNumber: initialValues.phoneNumber,
+    message: initialValues.message,
   });
 
   const handleChange = (e) => {
-    if (isViewMode) return; // prevent changes in view mode
+    if (isViewMode) return;
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isViewMode) {
-      onSubmit({ ...formData, id: initialValues.id });
+    if (isViewMode) return;
+
+    if (areAllFieldsEmpty(formData)) {
+      toast.error("Please fill out all required fields.", {position: "bottom-right"});
+      return;
     }
+
+    const errors = validateContactForm(formData);
+    if (errors.length > 0) {
+      errors.forEach((err) => toast.error(err));
+      return;
+    }
+
+    onSubmit({ ...formData, id: initialValues.id });
   };
 
   return (
@@ -43,9 +56,7 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false ,submitT
     >
       <Form.Item required>
         <Input
-          prefix={
-            <UserOutlined style={{ color: "#FF6F00" }} className="form-icon" />
-          }
+          prefix={<UserOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           name="firstName"
           placeholder="Enter First Name"
           value={formData.firstName}
@@ -56,12 +67,7 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false ,submitT
 
       <Form.Item required>
         <Input
-          prefix={
-            <IdcardOutlined
-              style={{ color: "#FF6F00" }}
-              className="form-icon"
-            />
-          }
+          prefix={<IdcardOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           name="lastName"
           placeholder="Enter Last Name"
           value={formData.lastName}
@@ -72,9 +78,7 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false ,submitT
 
       <Form.Item required>
         <Input
-          prefix={
-            <MailOutlined style={{ color: "#FF6F00" }} className="form-icon" />
-          }
+          prefix={<MailOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           type="email"
           name="email"
           placeholder="Enter Email"
@@ -86,12 +90,7 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false ,submitT
 
       <Form.Item required>
         <Input
-          prefix={
-            <GlobalOutlined
-              style={{ color: "#FF6F00" }}
-              className="form-icon"
-            />
-          }
+          prefix={<GlobalOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           name="country"
           placeholder="Enter Country"
           value={formData.country}
@@ -102,9 +101,7 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false ,submitT
 
       <Form.Item required>
         <Input
-          prefix={
-            <PhoneOutlined style={{ color: "#FF6F00" }} className="form-icon" />
-          }
+          prefix={<PhoneOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           name="phoneNumber"
           placeholder="Enter Phone Number"
           value={formData.phoneNumber}
