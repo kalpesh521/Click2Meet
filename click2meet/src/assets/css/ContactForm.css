@@ -32,3 +32,18 @@
       
   }
 
+  .schedule-btn {
+    background-color: #FF6F00;
+    border-color: #FF6F00;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.schedule-btn:hover {
+    background-color: #e66000 !important;
+}
+
+.schedule-btn:hover {
+    border-color: transparent !important;
+    box-shadow: none !important;
+}

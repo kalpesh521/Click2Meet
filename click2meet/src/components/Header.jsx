@@ -1,6 +1,7 @@
+// AppHeader.jsx
 import React, { useState, useEffect } from "react";
 import { Layout, Menu, Input, Button, Drawer } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // ✅ useNavigate added
 import {
   SearchOutlined,
   PlusOutlined,
@@ -17,7 +18,8 @@ const { Header } = Layout;
 
 const AppHeader = () => {
   const location = useLocation();
-  const dispatch = useDispatch();  // <--- THIS IS IMPORTANT
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ NEW
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -53,7 +55,15 @@ const AppHeader = () => {
   const onSearchChange = (e) => {
     const value = e.target.value;
     setSearchValue(value);
-    dispatch(setSearchTerm(value));  // dispatch available here now
+    dispatch(setSearchTerm(value));
+  };
+
+  const isDashboardPage = location.pathname === "/";
+  const isAddPage = location.pathname === "/add";
+
+  // ✅ Handler for focus redirect
+  const handleScheduleClick = () => {
+    navigate("/add", { state: { focusFirstName: true } });
   };
 
   return (
@@ -73,20 +83,32 @@ const AppHeader = () => {
               items={menuItems}
             />
           </div>
+
           <div className="header-right">
-            <Input
-              placeholder="Search Contacts"
-              prefix={<SearchOutlined className="search-icon" />}
-              style={{
-                width: 250,
-                borderRadius: "20px",
-                border: "1px solid #FF6F00",
-                boxShadow: "none",
-                outline: "none",
-              }}
-              value={searchValue}
-              onChange={onSearchChange}
-            />
+            {isDashboardPage && (
+              <Input
+                placeholder="Search Contacts"
+                prefix={<SearchOutlined className="search-icon" />}
+                style={{
+                  width: 250,
+                  borderRadius: "20px",
+                  border: "1px solid #FF6F00",
+                  boxShadow: "none",
+                  outline: "none",
+                }}
+                value={searchValue}
+                onChange={onSearchChange}
+              />
+            )}
+            {isAddPage && (
+              <Button
+                onClick={handleScheduleClick}
+                className="schedule-btn"
+                type="primary"
+              >
+                Schedule a Call
+              </Button>
+            )}
           </div>
         </>
       )}
@@ -100,20 +122,32 @@ const AppHeader = () => {
             onClick={() => setDrawerVisible(true)}
           />
           <div className="mobile-search-wrapper">
-            <Input
-              className="mobile-search-input"
-              placeholder="Search Contacts"
-              prefix={<SearchOutlined className="search-icon" />}
-              style={{
-                borderRadius: "20px",
-                border: "1px solid #FF6F00",
-                boxShadow: "none",
-                outline: "none",
-                color: "#FF6F00",
-              }}
-              value={searchValue}
-              onChange={onSearchChange}
-            />
+            {isDashboardPage && (
+              <Input
+                className="mobile-search-input"
+                placeholder="Search Contacts"
+                prefix={<SearchOutlined className="search-icon" />}
+                style={{
+                  borderRadius: "20px",
+                  border: "1px solid #FF6F00",
+                  boxShadow: "none",
+                  outline: "none",
+                  color: "#FF6F00",
+                }}
+                value={searchValue}
+                onChange={onSearchChange}
+              />
+            )}
+            {isAddPage && (
+              <Button
+                block
+                onClick={handleScheduleClick} // ✅ updated here
+                className="schedule-btn"
+                type="primary"
+              >
+                Schedule a Call
+              </Button>
+            )}
           </div>
         </>
       )}

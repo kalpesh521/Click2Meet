@@ -1,3 +1,5 @@
+// Dashboard.jsx
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,10 +17,8 @@ import { filterContacts } from "../utils/filterContacts";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { data, isLoading } = useSelector((state) => state.contactsApi);
-
   const contacts = useSelector(state => state.users.contacts ?? []);
   const searchTerm = useSelector(state => state.users.searchTerm ?? '');
-  const userContacts = useSelector(state => state.users.contacts ?? []);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,8 +30,13 @@ const Dashboard = () => {
     }
   }, [dispatch, data.length]);
 
-  const allContacts = [...data, ...userContacts];
+  // ✅ Combine and assign originalIndex to each contact
+  const allContacts = [...data, ...contacts].map((contact, index) => ({
+    ...contact,
+    originalIndex: index // <-- added index before filtering
+  }));
 
+  // ✅ Filter using updated list that includes originalIndex
   const filteredContacts = filterContacts(allContacts, searchTerm);
 
   const handleView = (contact) => {
@@ -62,7 +67,8 @@ const Dashboard = () => {
     {
       title: "Sr. No",
       width: 100,
-      render: (_, __, index) => index + 1,
+      // ✅ Use originalIndex + 1 instead of table index
+      render: (_, record) => record.originalIndex + 1,
     },
     {
       title: "Name",

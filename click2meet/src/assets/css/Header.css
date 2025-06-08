@@ -97,7 +97,21 @@
     width: 32px;
     height: 32px;
     object-fit: contain;
+    animation: phoneRing 2.5s infinite ease-in-out;
+    transform-origin: 70% 70%; /* pivot point for rotation */
 }
+
+@keyframes phoneRing {
+    0%   { transform: rotate(0deg); }
+    7%   { transform: rotate(15deg); }
+    14%  { transform: rotate(-10deg); }
+    21%  { transform: rotate(15deg); }
+    28%  { transform: rotate(-10deg); }
+    35%  { transform: rotate(15deg); }
+    43%  { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); } /* rest for remaining 57% */
+}
+
 
 .header-left {
     display: flex;
@@ -158,4 +172,21 @@
     }
 
 
+}
+
+.schedule-btn {
+    background-color: #FF6F00;
+    border-color: #FF6F00;
+    border-radius: 15px;
+    font-weight: 600;
+    padding:15px 25px;
+}
+
+.schedule-btn:hover {
+    background-color: #e66000 !important;
+}
+
+.schedule-btn:hover {
+    border-color: transparent !important;
+    box-shadow: none !important;
 }

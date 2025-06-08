@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// ContactForm.jsx
+import React, { useState, useRef, useEffect } from "react";
 import "../assets/css/ContactForm.css";
 import { Button, Form, Input } from "antd";
 import {
@@ -10,19 +11,34 @@ import {
   MessageOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
-import { validateContactForm,areAllFieldsEmpty } from "../utils/validation";
+import { validateContactForm, areAllFieldsEmpty } from "../utils/validation";
+import { useLocation } from "react-router-dom"; // ✅ NEW
 
 const { TextArea } = Input;
 
-const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitText }) => {
+const ContactForm = ({
+  initialValues = {},
+  onSubmit,
+  isViewMode = false,
+  submitText,
+}) => {
   const [formData, setFormData] = useState({
-    firstName: initialValues.firstName,
-    lastName: initialValues.lastName,
-    email: initialValues.email,
-    country: initialValues.country,
-    phoneNumber: initialValues.phoneNumber,
-    message: initialValues.message,
+    firstName: initialValues.firstName || "",
+    lastName: initialValues.lastName || "",
+    email: initialValues.email || "",
+    country: initialValues.country || "",
+    phoneNumber: initialValues.phoneNumber || "",
+    message: initialValues.message || "",
   });
+
+  const location = useLocation(); // ✅ NEW
+  const firstNameRef = useRef(null); // ✅ NEW
+
+  useEffect(() => {
+    if (location.state?.focusFirstName && firstNameRef.current) {
+      firstNameRef.current.focus();
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     if (isViewMode) return;
@@ -35,7 +51,9 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitT
     if (isViewMode) return;
 
     if (areAllFieldsEmpty(formData)) {
-      toast.error("Please fill out all required fields.", {position: "bottom-right"});
+      toast.error("Please fill out all required fields.", {
+        position: "bottom-right",
+      });
       return;
     }
 
@@ -56,7 +74,10 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitT
     >
       <Form.Item required>
         <Input
-          prefix={<UserOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
+          ref={firstNameRef} // ✅ added reference
+          prefix={
+            <UserOutlined style={{ color: "#FF6F00" }} className="form-icon" />
+          }
           name="firstName"
           placeholder="Enter First Name"
           value={formData.firstName}
@@ -67,7 +88,12 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitT
 
       <Form.Item required>
         <Input
-          prefix={<IdcardOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
+          prefix={
+            <IdcardOutlined
+              style={{ color: "#FF6F00" }}
+              className="form-icon"
+            />
+          }
           name="lastName"
           placeholder="Enter Last Name"
           value={formData.lastName}
@@ -78,7 +104,9 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitT
 
       <Form.Item required>
         <Input
-          prefix={<MailOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
+          prefix={
+            <MailOutlined style={{ color: "#FF6F00" }} className="form-icon" />
+          }
           type="email"
           name="email"
           placeholder="Enter Email"
@@ -90,7 +118,12 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitT
 
       <Form.Item required>
         <Input
-          prefix={<GlobalOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
+          prefix={
+            <GlobalOutlined
+              style={{ color: "#FF6F00" }}
+              className="form-icon"
+            />
+          }
           name="country"
           placeholder="Enter Country"
           value={formData.country}
@@ -101,7 +134,12 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitT
 
       <Form.Item required>
         <Input
-          prefix={<PhoneOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
+          prefix={
+            <PhoneOutlined
+              style={{ color: "#FF6F00", transform: "rotate(90deg)" }}
+              className="form-icon"
+            />
+          }
           name="phoneNumber"
           placeholder="Enter Phone Number"
           value={formData.phoneNumber}
@@ -140,12 +178,7 @@ const ContactForm = ({ initialValues = {}, onSubmit, isViewMode = false, submitT
             type="primary"
             htmlType="submit"
             block
-            style={{
-              backgroundColor: "#FF6F00",
-              borderColor: "#FF6F00",
-              borderRadius: "15px",
-              fontWeight: "600",
-            }}
+            className="schedule-btn"
           >
             {submitText || "Schedule a Call"}
           </Button>
