@@ -67,12 +67,12 @@ const AddContact = () => {
   return (
     <div className="contact-container">
       <div className="contact-wrapper">
-        <h1>Our Team of experts are here to help</h1>
-        <p>Get support 24/7, with our award-winning support network of growth experts</p>
+        <h1>Partner with Experts Committed to Your Growth</h1>
+        <p>Schedule a personalized meeting with our experts to explore tailored solutions that align with your business goals.</p>
         <img src={contactUsImg} alt="Contact us" />
       </div>
       <div className="form-wrapper">
-        <ContactForm onSubmit={handleSubmit} submitText="Submit Contact" />
+        <ContactForm onSubmit={handleSubmit} submitText="Schedule a Meeting" />
       </div>
     </div>
   );

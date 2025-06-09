@@ -1,6 +1,8 @@
 /* EditContact.css */
 
- 
+.edit-contact-modal {
+    padding:24px;
+}
   
   .modal-close-icon {
     font-size: 18px;
@@ -31,3 +33,8 @@
     resize: vertical;
   }
   
+  @media (max-width :767px){
+    .view-contact-modal{
+      padding:25px 15px;
+  }
+  }

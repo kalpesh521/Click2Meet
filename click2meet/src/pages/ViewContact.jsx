@@ -14,12 +14,7 @@ const ViewContact = ({ open, onClose, contact }) => {
       footer={null}
       centered
       width={600}
-      closeIcon={<span className="modal-close-icon">×</span>}
-      styles={{
-        body: {
-          padding: 24
-        }
-      }}
+      closeIcon={<span className="modal-close-icon">×</span>} 
       className="view-contact-modal"
     >
       <ContactForm initialValues={contact} isViewMode />

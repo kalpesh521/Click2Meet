@@ -17,7 +17,11 @@
     padding: 20px;
   }
   .contact-wrapper h1{
-    font-size:42px;
+    font-size:38px;
+}
+  .contact-wrapper p{
+    font-size:18px;
+    margin-bottom:30px;
 }
   .contact-wrapper img {
     width: 100%;
@@ -63,4 +67,39 @@
     }   
   }
   
-  
+  /* Tablet screen styles (768px - 992px) */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .contact-container {
+    grid-template-columns: 1fr; /* Keep two columns */
+    gap: 50px; /* Reduce gap for tablets */
+    padding: 30px 40px; /* Slightly less padding */
+    justify-content: center; 
+  }
+
+  .contact-wrapper {
+    width: 450px; /* Slightly smaller */
+    padding: 15px;
+    margin:auto;
+  }
+
+  .form-wrapper {
+    width: 420px; /* Slightly smaller */
+    padding: 15px;
+    margin:auto;
+  }
+
+  .contact-wrapper h1 {
+    font-size: 32px; /* Reduce font size for tablet */
+  }
+
+  .contact-wrapper p {
+    font-size: 16px; /* Slightly smaller paragraph */
+    margin-bottom: 25px;
+  }
+
+  .contact-wrapper img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5%;
+  }
+}

@@ -54,8 +54,7 @@ const EditContact = ({ open, onClose, contact }) => {
       centered
       width={600}
       closeIcon={<span className="modal-close-icon">×</span>}
-      className="edit-contact-modal"
-      styles={{ body: { padding: 24 } }}
+      className="edit-contact-modal" 
     >
       <ContactForm
         onSubmit={handleSubmit}

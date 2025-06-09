@@ -8,6 +8,9 @@
     color: black;
   }
   
+  .view-contact-modal{
+      padding:24px;
+  }
   /* Input and textarea styling */
   .view-contact-modal .ant-input,
   .view-contact-modal .ant-input-affix-wrapper,
@@ -35,5 +38,10 @@
     resize: none;
   }
   
+  @media (max-width:767px){
+    .view-contact-modal{
+      padding:25px 10px;
+  }
+  }
  
   

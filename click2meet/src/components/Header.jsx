@@ -33,22 +33,22 @@ const AppHeader = () => {
   }, []);
 
   const selectedKey =
-    location.pathname.startsWith("/add") ||
-    location.pathname.startsWith("/edit") ||
-    location.pathname.startsWith("/view")
+    location.pathname === "/"
       ? "add"
-      : "dashboard";
+      : location.pathname.startsWith("/dashboard")
+      ? "dashboard"
+      : "";
 
   const menuItems = [
     {
       key: "add",
       icon: <PlusOutlined />,
-      label: <Link to="/add">Contact Us</Link>,
+      label: <Link to="/">Contact Us</Link>,
     },
     {
       key: "dashboard",
       icon: <DashboardOutlined />,
-      label: <Link to="/">Dashboard</Link>,
+      label: <Link to="/dashboard">Dashboard</Link>,
     },
   ];
 
@@ -58,19 +58,25 @@ const AppHeader = () => {
     dispatch(setSearchTerm(value));
   };
 
-  const isDashboardPage = location.pathname === "/";
-  const isAddPage = location.pathname === "/add";
+  const isDashboardPage = location.pathname === "/dashboard";
+  const isAddPage = location.pathname === "/";
 
   // ✅ Handler for focus redirect
   const handleScheduleClick = () => {
-    navigate("/add", { state: { focusFirstName: true } });
+    navigate("/", { state: { focusFirstName: true } });
   };
 
   return (
     <Header className="custom-header">
       <div className="header-left">
-        <img src={contactIcon} alt="Click2Meet Logo" className="header-icon" />
-        <div className="logo">Click2Meet</div>
+        <Link to="/" className="logo-link">
+          <img
+            src={contactIcon}
+            alt="Click2Meet Logo"
+            className="header-icon"
+          />
+          <div className="logo">Click2Meet</div>
+        </Link>
       </div>
 
       {!isMobile && (
@@ -106,7 +112,7 @@ const AppHeader = () => {
                 className="schedule-btn"
                 type="primary"
               >
-                Schedule a Call
+                Talk to an Expert
               </Button>
             )}
           </div>

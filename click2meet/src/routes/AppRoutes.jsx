@@ -10,8 +10,8 @@ import ViewContact from '../pages/ViewContact';
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/add" element={<AddContact />} />
+      <Route path="/" element={<AddContact />}  />
+      <Route path="/dashboard"  element={<Dashboard />} />
       <Route path="/edit/:id" element={<EditContact />} />
       <Route path="/view/:id" element={<ViewContact />} />
     </Routes>
