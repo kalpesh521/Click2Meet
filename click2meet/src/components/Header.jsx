@@ -151,7 +151,7 @@ const AppHeader = () => {
                 className="schedule-btn"
                 type="primary"
               >
-                Schedule a Call
+                Talk to an Expert
               </Button>
             )}
           </div>
