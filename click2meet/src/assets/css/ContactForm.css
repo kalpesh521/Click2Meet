@@ -47,3 +47,16 @@
     border-color: transparent !important;
     box-shadow: none !important;
 }
+
+.blink-border {
+  animation: blink 0.3s ease-in-out 3; 
+}
+
+@keyframes blink {
+  0%, 100% {
+    border-color: #FF6F00;
+  }
+  50% {
+    border-color: #FF6F00AA;
+  }
+}

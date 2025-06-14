@@ -1,5 +1,4 @@
-// ContactForm.jsx
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useImperativeHandle, forwardRef, useEffect } from "react";
 import "../assets/css/ContactForm.css";
 import { Button, Form, Input } from "antd";
 import {
@@ -12,16 +11,10 @@ import {
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { validateContactForm, areAllFieldsEmpty } from "../utils/validation";
-import { useLocation } from "react-router-dom"; // ✅ NEW
 
 const { TextArea } = Input;
 
-const ContactForm = ({
-  initialValues = {},
-  onSubmit,
-  isViewMode = false,
-  submitText,
-}) => {
+const ContactForm = forwardRef(({ initialValues = {}, onSubmit, isViewMode = false, submitText, focusFirstName }, ref) => {
   const [formData, setFormData] = useState({
     firstName: initialValues.firstName || "",
     lastName: initialValues.lastName || "",
@@ -31,14 +24,35 @@ const ContactForm = ({
     message: initialValues.message || "",
   });
 
-  const location = useLocation(); // ✅ NEW
-  const firstNameRef = useRef(null); // ✅ NEW
+  const firstNameRef = useRef(null);
 
+  // Blink effect
   useEffect(() => {
-    if (location.state?.focusFirstName && firstNameRef.current) {
+    if (focusFirstName && firstNameRef.current) {
       firstNameRef.current.focus();
+      firstNameRef.current.classList.add("blink-border");
+
+      const timeout = setTimeout(() => {
+        firstNameRef.current.classList.remove("blink-border");
+      }, 1500);
+
+      return () => clearTimeout(timeout);
     }
-  }, [location.state]);
+  }, [focusFirstName]);
+
+  // Expose resetForm method to parent via ref
+  useImperativeHandle(ref, () => ({
+    resetForm() {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        country: "",
+        phoneNumber: "",
+        message: "",
+      });
+    },
+  }));
 
   const handleChange = (e) => {
     if (isViewMode) return;
@@ -51,9 +65,7 @@ const ContactForm = ({
     if (isViewMode) return;
 
     if (areAllFieldsEmpty(formData)) {
-      toast.error("Please fill out all required fields.", {
-        position: "bottom-right",
-      });
+      toast.error("Please fill out all required fields.", { position: "bottom-right" });
       return;
     }
 
@@ -67,33 +79,27 @@ const ContactForm = ({
   };
 
   return (
-    <Form
-      className="form-container"
-      layout="vertical"
-      onSubmitCapture={handleSubmit}
-    >
+    <Form className="form-container" layout="vertical" onSubmitCapture={handleSubmit}>
       <Form.Item required>
-        <Input
-          ref={firstNameRef} // ✅ added reference
-          prefix={
-            <UserOutlined style={{ color: "#FF6F00" }} className="form-icon" />
-          }
+        <Input 
+          prefix={<UserOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           name="firstName"
           placeholder="Enter First Name"
           value={formData.firstName}
           onChange={handleChange}
           disabled={isViewMode}
+          ref={(input) => {
+            if (input) {
+              firstNameRef.current = input.input; // Get actual DOM input
+            }
+          }}
         />
       </Form.Item>
-
+      {/* Remaining fields unchanged */}
+      {/* ... */}
       <Form.Item required>
         <Input
-          prefix={
-            <IdcardOutlined
-              style={{ color: "#FF6F00" }}
-              className="form-icon"
-            />
-          }
+          prefix={<IdcardOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           name="lastName"
           placeholder="Enter Last Name"
           value={formData.lastName}
@@ -101,12 +107,9 @@ const ContactForm = ({
           disabled={isViewMode}
         />
       </Form.Item>
-
       <Form.Item required>
         <Input
-          prefix={
-            <MailOutlined style={{ color: "#FF6F00" }} className="form-icon" />
-          }
+          prefix={<MailOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           type="email"
           name="email"
           placeholder="Enter Email"
@@ -115,15 +118,9 @@ const ContactForm = ({
           disabled={isViewMode}
         />
       </Form.Item>
-
       <Form.Item required>
         <Input
-          prefix={
-            <GlobalOutlined
-              style={{ color: "#FF6F00" }}
-              className="form-icon"
-            />
-          }
+          prefix={<GlobalOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
           name="country"
           placeholder="Enter Country"
           value={formData.country}
@@ -131,15 +128,9 @@ const ContactForm = ({
           disabled={isViewMode}
         />
       </Form.Item>
-
       <Form.Item required>
         <Input
-          prefix={
-            <PhoneOutlined
-              style={{ color: "#FF6F00", transform: "rotate(90deg)" }}
-              className="form-icon"
-            />
-          }
+          prefix={<PhoneOutlined style={{ color: "#FF6F00", transform: "rotate(90deg)" }} className="form-icon" />}
           name="phoneNumber"
           placeholder="Enter Phone Number"
           value={formData.phoneNumber}
@@ -147,7 +138,6 @@ const ContactForm = ({
           disabled={isViewMode}
         />
       </Form.Item>
-
       <Form.Item required>
         <div style={{ position: "relative" }}>
           <MessageOutlined
@@ -171,21 +161,15 @@ const ContactForm = ({
           />
         </div>
       </Form.Item>
-
       {!isViewMode && (
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            block
-            className="schedule-btn"
-          >
+          <Button type="primary" htmlType="submit" block className="schedule-btn">
             {submitText || "Schedule a Call"}
           </Button>
         </Form.Item>
       )}
     </Form>
   );
-};
+});
 
 export default ContactForm;

@@ -29,3 +29,11 @@
       display: none !important;
     }
   }
+
+@media (min-width:1900px){
+    .dashboard-table{
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 24px 16px; 
+    }
+}

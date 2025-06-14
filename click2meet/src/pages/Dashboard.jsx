@@ -17,8 +17,8 @@ import { filterContacts } from "../utils/filterContacts";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { data, isLoading } = useSelector((state) => state.contactsApi);
-  const contacts = useSelector(state => state.users.contacts ?? []);
-  const searchTerm = useSelector(state => state.users.searchTerm ?? '');
+  const contacts = useSelector((state) => state.users.contacts ?? []);
+  const searchTerm = useSelector((state) => state.users.searchTerm ?? "");
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +33,7 @@ const Dashboard = () => {
   // ✅ Combine and assign originalIndex to each contact
   const allContacts = [...data, ...contacts].map((contact, index) => ({
     ...contact,
-    originalIndex: index // <-- added index before filtering
+    originalIndex: index, // <-- added index before filtering
   }));
 
   // ✅ Filter using updated list that includes originalIndex
@@ -121,7 +121,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <>
+    <div className="dashboard-table">
       <h2 className="dashboard-heading">Contacts Directory</h2>
       <Table
         columns={columns}
@@ -144,7 +144,7 @@ const Dashboard = () => {
         onClose={handleModalClose}
         contact={selectedContact}
       />
-    </>
+    </div>
   );
 };
 
