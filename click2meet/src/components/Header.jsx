@@ -13,6 +13,7 @@ import { setSearchTerm } from "../features/contacts/userReducer";
 
 import "../assets/css/Header.css";
 import contactIcon from "../assets/images/contact-us-icon.png";
+import useIsMobileBtn from "../hook/useIsMobileBtn";
 
 const { Header } = Layout;
 
@@ -23,6 +24,7 @@ const AppHeader = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const isMobileBtn = useIsMobileBtn();
 
   useEffect(() => {
     const handleResize = () => {
@@ -98,9 +100,10 @@ const AppHeader = () => {
                 style={{
                   width: 250,
                   borderRadius: "20px",
-                  border: "1px solid #FF6F00",
+                  border: "1px solid #FF6F00", 
                   boxShadow: "none",
                   outline: "none",
+                  color: "black" 
                 }}
                 value={searchValue}
                 onChange={onSearchChange}
@@ -138,22 +141,13 @@ const AppHeader = () => {
                   border: "1px solid #FF6F00",
                   boxShadow: "none",
                   outline: "none",
-                  color: "#FF6F00",
+                  color: "#000000",
                 }}
                 value={searchValue}
                 onChange={onSearchChange}
               />
             )}
-            {isAddPage && (
-              <Button
-                block
-                onClick={handleScheduleClick} // ✅ updated here
-                className="schedule-btn"
-                type="primary"
-              >
-                Talk to an Expert
-              </Button>
-            )}
+          
           </div>
         </>
       )}
