@@ -66,8 +66,7 @@ const Dashboard = () => {
   const columns = [
     {
       title: "Sr. No",
-      width: 100,
-      // ✅ Use originalIndex + 1 instead of table index
+      width: 80, 
       render: (_, record) => record.originalIndex + 1,
     },
     {
@@ -77,14 +76,14 @@ const Dashboard = () => {
     {
       title: "Email",
       dataIndex: "email",
-      responsive: ["md"],
+      responsive: ["lg"],
       width: 450,
       ellipsis: true,
     },
     {
       title: "Country",
       dataIndex: "country",
-      responsive: ["md"],
+      responsive: ["lg"],
       width: 300,
       ellipsis: true,
     },

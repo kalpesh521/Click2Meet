@@ -87,7 +87,7 @@
  }
 
  /* Tablet screen styles (768px - 992px) */
- @media screen and (min-width: 768px) and (max-width: 992px) {
+ @media screen and (min-width: 768px) and (max-width: 1024px) {
    .contact-container {
      grid-template-columns: 1fr;
      /* Keep two columns */
@@ -96,6 +96,7 @@
      padding: 30px 40px;
      /* Slightly less padding */
      justify-content: center;
+     text-align: center;
    }
 
    .contact-wrapper {

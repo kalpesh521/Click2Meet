@@ -15,10 +15,10 @@
 }
 
 /* Tablet devices: 768px - 992px */
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     .dashboard-heading {
       font-size: 24px;       /* Slightly smaller than desktop, bigger than mobile */
-      margin: 40px 20px 20px 20px;  /* Adjust margin for tablet */
+      margin: 80px 20px 20px 20px;  /* Adjust margin for tablet */
       text-align: left;      /* Keep left aligned or center as per your design */
     }
   }

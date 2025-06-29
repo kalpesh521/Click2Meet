@@ -1,7 +1,6 @@
-// AppHeader.jsx
 import React, { useState, useEffect } from "react";
 import { Layout, Menu, Input, Button, Drawer } from "antd";
-import { Link, useLocation, useNavigate } from "react-router-dom"; // ✅ useNavigate added
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   SearchOutlined,
   PlusOutlined,
@@ -10,25 +9,22 @@ import {
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { setSearchTerm } from "../features/contacts/userReducer";
-
 import "../assets/css/Header.css";
 import contactIcon from "../assets/images/contact-us-icon.png";
-import useIsMobileBtn from "../hook/useIsMobileBtn";
 
 const { Header } = Layout;
 
 const AppHeader = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ✅ NEW
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const isMobileBtn = useIsMobileBtn();
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth <=1024);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -63,7 +59,6 @@ const AppHeader = () => {
   const isDashboardPage = location.pathname === "/dashboard";
   const isAddPage = location.pathname === "/";
 
-  // ✅ Handler for focus redirect
   const handleScheduleClick = () => {
     navigate("/", { state: { focusFirstName: true } });
   };
@@ -100,10 +95,10 @@ const AppHeader = () => {
                 style={{
                   width: 250,
                   borderRadius: "20px",
-                  border: "1px solid #FF6F00", 
+                  border: "1px solid #FF6F00",
                   boxShadow: "none",
                   outline: "none",
-                  color: "black" 
+                  color: "black",
                 }}
                 value={searchValue}
                 onChange={onSearchChange}
@@ -147,7 +142,6 @@ const AppHeader = () => {
                 onChange={onSearchChange}
               />
             )}
-          
           </div>
         </>
       )}
