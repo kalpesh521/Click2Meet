@@ -1,4 +1,4 @@
-// utils/validation.js
+ 
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 export const nameRegex = /^[A-Za-z\s]+$/;
@@ -16,7 +16,7 @@ export const areAllFieldsEmpty = (values) => {
   );
 };
 
-// Validate phone number using libphonenumber-js
+ 
 export const validatePhoneNumber = (phone) => {
   if (!phone) return false;
   const phoneNumber = parsePhoneNumberFromString(phone);

@@ -26,7 +26,6 @@ const ContactForm = forwardRef(({ initialValues = {}, onSubmit, isViewMode = fal
 
   const firstNameRef = useRef(null);
 
-  // Blink effect
   useEffect(() => {
     if (focusFirstName && firstNameRef.current) {
       firstNameRef.current.focus();
@@ -40,7 +39,6 @@ const ContactForm = forwardRef(({ initialValues = {}, onSubmit, isViewMode = fal
     }
   }, [focusFirstName]);
 
-  // Expose resetForm method to parent via ref
   useImperativeHandle(ref, () => ({
     resetForm() {
       setFormData({
@@ -90,13 +88,12 @@ const ContactForm = forwardRef(({ initialValues = {}, onSubmit, isViewMode = fal
           disabled={isViewMode}
           ref={(input) => {
             if (input) {
-              firstNameRef.current = input.input; // Get actual DOM input
+              firstNameRef.current = input.input;  
             }
           }}
         />
       </Form.Item>
-      {/* Remaining fields unchanged */}
-      {/* ... */}
+      
       <Form.Item required>
         <Input
           prefix={<IdcardOutlined style={{ color: "#FF6F00" }} className="form-icon" />}
