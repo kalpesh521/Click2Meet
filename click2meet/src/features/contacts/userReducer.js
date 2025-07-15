@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  contacts: [],      // array of contacts
-  searchTerm: '',    // current search term
+  contacts: [],      
+  searchTerm: '',    
 };
 
 const userSlice = createSlice({

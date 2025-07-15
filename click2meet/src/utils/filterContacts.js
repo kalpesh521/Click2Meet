@@ -1,12 +1,5 @@
-// src/utils/filterContacts.js
+ 
 
-/**
- * Filters contacts based on a search term.
- * 
- * @param {Array} contacts - Array of contact objects.
- * @param {string} searchTerm - The search string.
- * @returns {Array} Filtered contacts.
- */
 export function filterContacts(contacts, searchTerm) {
     if (!searchTerm) return contacts;
   

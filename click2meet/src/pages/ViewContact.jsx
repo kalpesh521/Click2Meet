@@ -7,8 +7,7 @@ const ViewContact = ({ open, onClose, contact }) => {
   if (!contact) return null;
 
   return (
-    <Modal
-      // title="View Contact"
+    <Modal 
       open={open}
       onCancel={onClose}
       footer={null}

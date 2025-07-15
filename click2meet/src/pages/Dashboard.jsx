@@ -1,4 +1,3 @@
-// Dashboard.jsx
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,13 +29,13 @@ const Dashboard = () => {
     }
   }, [dispatch, data.length]);
 
-  // ✅ Combine and assign originalIndex to each contact
+ 
   const allContacts = [...data, ...contacts].map((contact, index) => ({
     ...contact,
-    originalIndex: index, // <-- added index before filtering
+    originalIndex: index, 
   }));
 
-  // ✅ Filter using updated list that includes originalIndex
+   
   const filteredContacts = filterContacts(allContacts, searchTerm);
 
   const handleView = (contact) => {

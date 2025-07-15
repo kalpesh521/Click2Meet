@@ -1,4 +1,3 @@
-// src/pages/EditContact.js
 
 import React from "react";
 import { Modal } from "antd";
